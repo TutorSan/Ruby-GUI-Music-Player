@@ -18,20 +18,20 @@ class ArtWork
 
     def initialize (file)
         @bmp = Gosu::Image.new(file)
-         
+
     end
-    
+
 end
 
 class MusicPlayerMain < Gosu::Window
-    
+
 
     def initialize
 	    super(600,800,false)
         self.caption = "Music Player"
         @background = BOTTOM_COLOR
         @player = TOP_COLOR
-        @track_font = Gosu::Font.new(20) 
+        @track_font = Gosu::Font.new(20)
         @file_has_loaded = 0
         @albums = Array.new
         #this while loop is to avoid reloading a file
@@ -48,12 +48,12 @@ class MusicPlayerMain < Gosu::Window
             i += 1
           end
           @location = @album.tracks[@current_song].location.chomp
-          @song = Gosu::Song.new(@location) 
+          @song = Gosu::Song.new(@location)
           @song.play(false)
           @song.volume = 0.5
-                 
-    end 
-        
+
+    end
+
   # Draws the artwork on the screen for all the albums
 
   def draw_albums()
@@ -108,7 +108,7 @@ class MusicPlayerMain < Gosu::Window
         display_track(@album.tracks[@current_song].name.chomp+ " from album " + @album.title)
         draw_albums()
         draw_buttons()
-        
+
 	end
 
  # Draws the album images and the track list for the selected album
@@ -119,7 +119,7 @@ class MusicPlayerMain < Gosu::Window
   def needs_cursor?; true; end
 
 	def button_down(id)
-        
+
         case id
         when Gosu::KbS
             @song.stop
@@ -130,19 +130,19 @@ class MusicPlayerMain < Gosu::Window
                 @song.volume -= 0.1
             end
         when Gosu::KbUp
-            if @song.volume < 0.95 then 
+            if @song.volume < 0.95 then
                 @song.volume += 0.1
             end
         when Gosu::KbRight
           if @current_song < @album.tracks.length-1 then
             @current_song += 1
             @location = @album.tracks[@current_song].location.chomp
-            @song = Gosu::Song.new(@location) 
+            @song = Gosu::Song.new(@location)
             @song.play
-                 
-          else 
+
+          else
             puts("This was the last album track")
-            if @album_id < @albums.length-1 then   
+            if @album_id < @albums.length-1 then
               @album_id += 1
             else
               @album_id = 0
@@ -150,17 +150,17 @@ class MusicPlayerMain < Gosu::Window
             @current_song = 0
             @album = @albums[@album_id]
             @location = @album.tracks[@current_song].location.chomp
-            @song = Gosu::Song.new(@location) 
+            @song = Gosu::Song.new(@location)
             @song.play
           end
         when Gosu::KbLeft
             if @current_song > 0 then
               @current_song -= 1
               @location = @album.tracks[@current_song].location.chomp
-              @song = Gosu::Song.new(@location)   
-              @song.play 
-                
-            else 
+              @song = Gosu::Song.new(@location)
+              @song.play
+
+            else
               puts("This was the first album track")
               if @album_id > 0 then
                 @album_id -= 1
@@ -171,7 +171,7 @@ class MusicPlayerMain < Gosu::Window
               @album = @albums[@album_id]
               @current_song = @album.tracks.length-1
               @location = @album.tracks[@current_song].location.chomp
-              @song = Gosu::Song.new(@location) 
+              @song = Gosu::Song.new(@location)
               @song.play
             end
             #calling area_clicked for detecting a click on a button
@@ -188,11 +188,11 @@ class MusicPlayerMain < Gosu::Window
                 if @current_song < @album.tracks.length-1 then
                     @current_song += 1
                     @location = @album.tracks[@current_song].location.chomp
-                    @song = Gosu::Song.new(@location) 
+                    @song = Gosu::Song.new(@location)
                     @song.play
-                else 
+                else
                     puts("This was the last album track")
-                    if @album_id < @albums.length-1 then   
+                    if @album_id < @albums.length-1 then
                       @album_id += 1
                     else
                       @album_id = 0
@@ -200,17 +200,17 @@ class MusicPlayerMain < Gosu::Window
                     @current_song = 0
                     @album = @albums[@album_id]
                     @location = @album.tracks[@current_song].location.chomp
-                    @song = Gosu::Song.new(@location) 
+                    @song = Gosu::Song.new(@location)
                     @song.play
                 end
             when 5
                 if @current_song > 0 then
                     @current_song -= 1
                     @location = @album.tracks[@current_song].location.chomp
-                    @song = Gosu::Song.new(@location)   
-                    @song.play 
-                      
-                else 
+                    @song = Gosu::Song.new(@location)
+                    @song.play
+
+                else
                     puts("This was the first album track")
                   if @album_id > 0 then
                     @album_id -= 1
@@ -220,16 +220,16 @@ class MusicPlayerMain < Gosu::Window
                     @album = @albums[@album_id]
                     @current_song = @album.tracks.length-1
                     @location = @album.tracks[@current_song].location.chomp
-                    @song = Gosu::Song.new(@location) 
+                    @song = Gosu::Song.new(@location)
                     @song.play
-                    
-                end      
+
+                end
             end
         end
-    
+
   end
-              
-end  
+
+end
 
 # Show is a method that loops through update and draw
 
